@@ -12,7 +12,7 @@ function App() {
       }else{
         setIsLoggedIn(false);
       }
-      setInit(true);
+      setInit(true);  
     } );
   }, []);
 

@@ -1,5 +1,5 @@
 /* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */
-import { authService } from "fBase";
+import { authService, firebaseInstance } from "fBase";
 import React, { useState } from "react";
 
 const Auth = () => {
@@ -32,6 +32,17 @@ const Auth = () => {
         }
     };
     const toggleAccount = () => setNewAccount((prev) => !prev);
+    const OnSocial = async (event) => {
+        const {target : {name}} = event;
+        let provider;
+        if(name === "Google"){
+            provider = new firebaseInstance.auth.GoogleAuthProvider();
+        }else if(name === "Git hub"){
+            provider = new firebaseInstance.auth.GithubAuthProvider();
+        }
+        const data = await authService.signInWithPopup(provider);
+        console.log(data);
+    }
 
     return(
         <>
@@ -40,10 +51,11 @@ const Auth = () => {
             <input onChange ={onChange} name ="Password" type = "password" placeholder ="Password" required value ={password}/>
             <input type ="submit" value ={newAccount ? "Create Account" : "Sign In"} />
         </form>
+        {error}
         <span onClick={toggleAccount}>{newAccount ? "Sign In" : "Create Account"}</span>
         <div>
-        <button>Countinue with Google</button>
-        <button>Countinue with Github</button>
+        <button name= "Google" onClick ={OnSocial}>Countinue with Google</button>
+        <button name= "Git hub" onClick ={OnSocial}>Countinue with Github</button>
         </div>
      </>
     )
