@@ -1,5 +1,5 @@
-import { dbService } from "fBase";
 import React, { useState } from "react";
+import { dbService, storageService } from "fBase";
 
 const HwitterText = ({userObj, isOwner}) =>{
     const [editing, setEditing] = useState(false);
@@ -8,6 +8,7 @@ const HwitterText = ({userObj, isOwner}) =>{
     const ok = window.confirm("Are you Sure?");
     if(ok){
        await dbService.doc(`hwitters/${userObj.id}`).delete();
+       await storageService.refFromURL(userObj.fileUrl).delete();
     }
 };
 const toggleEditing = () => setEditing((prev) => !prev)
@@ -34,6 +35,7 @@ const onChange = (e) => {
             </>
         ) : (     
     <div>
+    {userObj.fileUrl && (<img src={userObj.fileUrl} width ="50px" height = "50px"/>)}
     <h4>{userObj.text}</h4>
     {isOwner && (
         <>
