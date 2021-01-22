@@ -7,7 +7,7 @@ import {v4 as uuidv4} from "uuid";
 const Home = ({userObj}) => {
     const [Hwitter, setHwitter] = useState("")
     const [Hwitters, setHwitters] = useState([]);
-    const [FileName, setFileName] = useState();
+    const [FileName, setFileName] = useState("");
     useEffect(() => {
         dbService.collection("hwitters").onSnapshot((snapshot) => {
             const hwitterArray = snapshot.docs.map((doc) => ({
