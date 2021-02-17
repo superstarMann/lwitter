@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { dbService, storageService } from "fBase";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
 const HwitterText = ({userObj, isOwner}) =>{
     const [editing, setEditing] = useState(false);
@@ -24,29 +26,29 @@ const onChange = (e) => {
     setNewText(value);
 }
     return(
-        <>
+        <div className="nweet">
         { editing ? (
             <>
-            <form onSubmit ={onSubmit}>
-            <input onChange ={onChange} type="text" placeholder={userObj.text} value ={newText} required/>
-            <input type ="submit" value ="Update Text"/>
+            <form onSubmit ={onSubmit} className="container nweetEdit">
+            <input onChange ={onChange} type="text" placeholder={userObj.text} value ={newText} required autoFocus className="formInput"/>
+            <input type ="submit" value ="Update Text" className= "formBtn"/>
             </form>
-            <button onClick = {toggleEditing}>Cancel</button>
+            <span onClick={toggleEditing} className="formBtn cancelBtn">Cancel</span>
             </>
         ) : (     
     <div>
-    {userObj.fileUrl && (<img src={userObj.fileUrl} width ="50px" height = "50px"/>)}
+    {userObj.fileUrl && <img src={userObj.fileUrl}/>}
     <h4>{userObj.text}</h4>
     {isOwner && (
-        <>
-        <button onClick={DeleteButton}>Delete</button>
-        <button onClick={toggleEditing}>Edit</button>
-       </>
+        <div class="nweet__actions">
+        <span onClick={DeleteButton}><FontAwesomeIcon icon={faTrash} /></span>
+        <span onClick={toggleEditing}><FontAwesomeIcon icon={faPencilAlt} /></span>
+       </div>
     )}
    </div>
         )}
-        </>
+        </div>
     )
-}
+};
 
 export default HwitterText;

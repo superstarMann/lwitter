@@ -1,6 +1,8 @@
 /* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */
 import { authService, firebaseInstance } from "fBase";
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faTwitter, faGoogle, faGithub} from "@fortawesome/free-brands-svg-icons";
 
 const Auth = () => {
     const [email, setEmail] = useState("");
@@ -45,19 +47,20 @@ const Auth = () => {
     }
 
     return(
-        <>
-        <form onSubmit = {onSubmit}>
-            <input onChange ={onChange} name ="Email" type = "email" placeholder ="Email" required value ={email}/>
-            <input onChange ={onChange} name ="Password" type = "password" placeholder ="Password" required value ={password}/>
-            <input type ="submit" value ={newAccount ? "Create Account" : "Sign In"} />
+        <div className="authContainer">
+        <form onSubmit = {onSubmit} className="container">
+             <FontAwesomeIcon icon={faTwitter} color={"#04AAFF"} size="3x" style={{ margin:"auto" , marginBottom: 30 }}/>
+            <input onChange ={onChange} name ="Email" type = "email" placeholder ="Email" required value ={email} className="authInput"/>
+            <input onChange ={onChange} name ="Password" type = "password" placeholder ="Password" required value ={password} className="authInput"/>
+            <input type ="submit" className="authInput authSubmit" value ={newAccount ? "Create Account" : "Sign In"}  />
         </form>
-        {error}
-        <span onClick={toggleAccount}>{newAccount ? "Sign In" : "Create Account"}</span>
-        <div>
-        <button name= "Google" onClick ={OnSocial}>Countinue with Google</button>
-        <button name= "Git hub" onClick ={OnSocial}>Countinue with Github</button>
+        {error && <span className="authError">{error}</span>}
+        <span onClick={toggleAccount} className="authSwitch">{newAccount ? "Sign In" : "Create Account"}</span>
+        <div className="authBtns">
+        <button name= "Google" onClick ={OnSocial} className="authBtn">Countinue with Google <FontAwesomeIcon icon={faGoogle} /></button>
+        <button name= "Git hub" onClick ={OnSocial} className="authBtn">Countinue with Github <FontAwesomeIcon icon={faGithub} /></button>
         </div>
-     </>
+     </div>
     )
 }
 

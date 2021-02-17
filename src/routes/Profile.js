@@ -39,13 +39,13 @@ const EditProfile = ({userObj}) => {
       }
 
     return(
-        <>
-        <form onSubmit ={onSubmit}> 
-            <input type ="text" onChange ={onChange} placeholder ="Edit Name" value = {newUserName} />
-            <input type ="submit" value ="Update Name"/>
+        <div className ="container">
+        <form onSubmit ={onSubmit} className="profileForm"> 
+            <input type ="text" onChange ={onChange} placeholder ="Edit Name" value = {newUserName} autoFocus className="formInput"/>
+            <input type ="submit" value ="Update Name" className="formBtn" style={{marginTop: 10}}/>
         </form>
-        <button onClick = {ClickLogOut}>Log Out</button>
-        </>
+        <span className="formBtn cancelBtn logOut" onClick = {ClickLogOut}>Log Out</span>
+        </div>
     )
 }
 
